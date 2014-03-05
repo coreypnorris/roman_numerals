@@ -10,32 +10,76 @@ def roman_numerals(number)
     1 => "I", 5 => "V",
     10 => "X", 50 => "L",
     100 => "C", 500 => "D",
-    1000 => "M"
+    1000 => "M", 0 => ""
  }
 
- if characters == 1
-  if number <= 3
-    result_ones += roman_hash[1] * number
-  elsif number == 4
+
+ if char_array.size == 4 && char_array[0].to_i < 4
+   if char_array[0].to_i <= 3
+     result_thousands = roman_hash[1000] * char_array[0].to_i
+     char_array.shift
+   end
+ end
+
+  if char_array.size == 3 && char_array[0].to_i >= 4
+    if char_array[0].to_i == 4
+      result_hundreds += roman_hash[100] + roman_hash[500]
+      char_array.shift
+    elsif char_array[0].to_i <= 8
+      result_hundreds += roman_hash[500] + (roman_hash[100] * (char_array[0].to_i - 5))
+      char_array.shift
+    elsif char_array[0].to_i == 9
+      result_hundreds += roman_hash[100] + roman_hash[1000]
+      char_array.shift
+    end
+  end
+
+  if char_array.size == 3 && char_array[0].to_i < 4
+    if char_array[0].to_i <= 3
+      result_hundreds = roman_hash[100] * char_array[0].to_i
+      char_array.shift
+    end
+  end
+
+  if char_array.size == 2 && char_array[0].to_i >= 4
+    if char_array[0].to_i == 4
+      result_tens += roman_hash[10] + roman_hash[50]
+      char_array.shift
+    elsif char_array[0].to_i <= 8
+      result_tens += roman_hash[50] + (roman_hash[10] *  (char_array[0].to_i - 5))
+      char_array.shift
+    elsif char_array[0].to_i == 9
+      result_tens += roman_hash[10] + roman_hash[100]
+      char_array.shift
+    end
+  end
+
+  if char_array.size == 2 && char_array[0].to_i < 4
+    if char_array[0].to_i <= 3
+      result_tens = roman_hash[10] * char_array[0].to_i
+      char_array.shift
+    end
+  end
+
+ if char_array.size == 1
+  if char_array[0].to_i == 0
+    result_ones += roman_hash[0]
+  elsif char_array[0].to_i <= 3
+    result_ones += roman_hash[1] * char_array[0].to_i
+  elsif char_array[0].to_i == 4
     result_ones += roman_hash[1] + roman_hash[5]
-  elsif number <= 8
-    result_ones += roman_hash[5] + (roman_hash[1] * (number - 5))
-  elsif number == 9
+  elsif char_array[0].to_i <= 8
+    result_ones += roman_hash[5] + (roman_hash[1] * (char_array[0].to_i - 5))
+  elsif char_array[0].to_i == 9
     result_ones += roman_hash[1] + roman_hash[10]
   end
  end
 
-  if characters == 2 && number < 40
-    if char_array[0].to_i <= 3
-      result_tens = roman_hash[10] * char_array[0].to_i
-    end
-  end
+  
  
-
-
  result = result_thousands + result_hundreds + result_tens + result_ones
  result
 
 end
 
-puts roman_numerals(10)
+puts roman_numerals(225)

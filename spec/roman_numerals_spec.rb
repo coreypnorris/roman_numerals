@@ -17,4 +17,13 @@ describe('roman_numerals') do
   it("translates numbers into roman numerals") do
     roman_numerals(39).should(eq("XXXIX"))
   end
+  it("translates numbers into roman numerals") do
+    roman_numerals(99).should(eq("XCIX"))
+  end
+  it("translates numbers into roman numerals") do
+    roman_numerals(225).should(eq("CCXXV"))
+  end
+  it("translates numbers into roman numerals") do
+    roman_numerals(3999).should(eq("MMMCMXCIX"))
+  end
 end
